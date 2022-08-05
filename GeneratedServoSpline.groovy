@@ -35,7 +35,7 @@ singleGear = bevelGears.get(0)
 
 thicknessHorn = thicknessGear + 2
 widthHorn = 8
-servoHorn = new Cube(widthHorn, widthHorn, thicknessHorn).toCSG()
+servoHorn = new Cube(widthHorn, 10, thicknessHorn).toCSG()
 servoHorn = servoHorn.toZMin()
 servoHorn = servoHorn.difference(singleGear)
 setScrewHoleWidth = 2.5
