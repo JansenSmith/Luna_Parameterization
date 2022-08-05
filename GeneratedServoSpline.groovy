@@ -5,8 +5,8 @@ double computeGearPitch(double diameterAtCrown,double numberOfTeeth){
 	return ((diameterAtCrown/2)*((360.0)/numberOfTeeth)*Math.PI/180)
 }
 
-double diameterAtCrown = 4.63
-double thicknessGear = 4.3
+double diameterAtCrown = 4.7
+double thicknessGear = 2.3
 
 // call a script from another library
 def bevelGears = ScriptingEngine.gitScriptRun(
