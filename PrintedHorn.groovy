@@ -1,3 +1,4 @@
+import com.neuronrobotics.bowlerstudio.scripting.ScriptingEngine
 
 // create larger servo horn geometry
 // modify GeneratedServoSpline?
@@ -10,3 +11,5 @@ def servoHorn = ScriptingEngine.gitScriptRun(
 			"https://github.com/JansenSmith/Luna_Parameterization.git", // git location of the library
 			"GeneratedServoSpline.groovy" , // file to load
 			)
+
+return servoHorn
