@@ -34,174 +34,12 @@ return new ICadGenerator(){
 	@Override 
 	public ArrayList<CSG> generateCad(DHParameterKinematics d, int linkIndex) {
 		return new ArrayList<>();
-		String limbName = d.getScriptingName()
-		File legFile = null
-		boolean mirror=true
-		if(limbName.contentEquals("DefaultLeg3")||limbName.contentEquals("DefaultLeg4")){
-			println "Mirror leg parts"
-			mirror=false
-		}
-		TransformNR  legRoot= d.getRobotToFiducialTransform()
-		def leftSide=false
-		def rear = true
-		if(legRoot.getY()>0){
-			leftSide=true;
-		}
-		if(legRoot.getX()>0){
-			rear=false;
-		}
-		
-		if(limbName.contentEquals("Tail")){
-			if(linkIndex >1)
-				return allCad;
-			if(linkIndex ==0){
-				legFile = ScriptingEngine.fileFromGit(
-				"https://github.com/OperationSmallKat/Luna.git",
-				"LunaTailMount.stl");
-	
-			}
-			if(linkIndex ==1){
-				legFile = ScriptingEngine.fileFromGit(
-				"https://github.com/OperationSmallKat/Luna.git",
-				"LunaTail.stl");
-			}
-	
-			
-		}else if(limbName.contentEquals("Head")){
-			if(linkIndex >1)
-				return allCad;
-			if(linkIndex ==0){
-				legFile = ScriptingEngine.fileFromGit(
-				"https://github.com/OperationSmallKat/Luna.git",
-				"LunaHeadMount.stl");
-
-			}
-			if(linkIndex ==1){
-				legFile = ScriptingEngine.fileFromGit(
-				"https://github.com/OperationSmallKat/Luna.git",
-				"LunaHead.stl");
-			}
-	
-			if(linkIndex ==2)
-				return allCad;
-		}else{
-			if(leftSide){
-				if(linkIndex ==0){
-					legFile = ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Luna.git",
-					"LunaShoulderMirror.stl");
-		
-				}
-				if(linkIndex ==1){
-					legFile = ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Luna.git",
-					"LunaKneeMirror.stl");
-		
-				}
-		
-				if(linkIndex ==2){
-					legFile = ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Luna.git",
-					"LunaFootMirror.stl");
-				}
-			}
-			else{
-				if(linkIndex ==0){
-					legFile = ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Luna.git",
-					"Shoulder Base.stl");
-		
-				}
-				if(linkIndex ==1){
-					legFile = ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Luna.git",
-					"Knee.stl");
-	
-				}
-		
-				if(linkIndex ==2){
-					legFile = ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Luna.git",
-					"Foot.stl");
-		
-				}
-			}
-		}
-		
-
-
-		ArrayList<DHLink> dhLinks = d.getChain().getLinks()
-		DHLink dh = dhLinks.get(linkIndex)
-		// Hardware to engineering units configuration
-		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
-		// Engineering units to kinematics link (limits and hardware type abstraction)
-		AbstractLink abstractLink = d.getAbstractLink(linkIndex);// Transform used by the UI to render the location of the object
-		// Transform used by the UI to render the location of the object
-		Affine manipulator = dh.getListener();
-
-		
-		// Load the .CSG from the disk and cache it in memory
-		println "Loading " +legFile
-		CSG body  = Vitamins.get(legFile)
-		if(linkIndex ==0){
-			//body=moveDHValues(body,dh)
-
-			if(limbName.contentEquals("Head")){
-				body=body
-				.movex(55)
-				.movez(-10)
-			
-			}	
-
-			else if(limbName.contentEquals("Tail")){
-				body=body
-				.movex(-15)
-				.movez(-6)
-			
-			}
-			
-			else{
-				body=body
-
-			}
-				
-		}
-		if(linkIndex ==1){
-			
-
-			if(limbName.contentEquals("Head")){
-				body=body
-				.movex(50)
-				.movez(-13)
-			}else if(limbName.contentEquals("Tail")){
-				body=body
-				.movex(-150)
-				.movez(-9)
-			
-			}else{
-				body=body
-			}
-		}
-		if(linkIndex ==2){
-			body=body
-
-		
-		}
-		
-		body.setManipulator(manipulator);
-	
-		def parts = [body ] as ArrayList<CSG>
-		for(int i=0;i<parts.size();i++){
-			parts.get(i).setColor(javafx.scene.paint.Color.RED)
-		}
-		return parts;
-		
 	}
 	@Override 
 	public ArrayList<CSG> generateBody(MobileBase b ) {
 		ArrayList<CSG> allCad=new ArrayList<>();
 
-
+		
 
 		// Load the .CSG from the disk and cache it in memory
 	
@@ -214,13 +52,13 @@ return new ICadGenerator(){
 			.movey(42.5)
 			.setColor(javafx.scene.paint.Color.YELLOW)
 			
-		def movedSHoulder=[]
+		ArrayList<CSG> movedSHoulder=[]
 		for(DHParameterKinematics leg:b.getLegs()){
 			Transform t = TransformFactory.nrToCSG(leg.getRobotToFiducialTransform())
 			movedSHoulder.add(srv.transformed(t))
 			//movedSHoulder.add(new Cube(0.1,0.1,200).toCSG().transformed(t))
 		}	
-		def myMovedLinks =[
+		ArrayList<CSG> myMovedLinks =[
 			
 			Vitamins.get(ScriptingEngine.fileFromGit(
 			"https://github.com/OperationSmallKat/Luna.git",
@@ -283,6 +121,12 @@ return new ICadGenerator(){
 			part.setManipulator(b.getRootListener());
 			
 		}
+		
+		def servoHorn = ScriptingEngine.gitScriptRun(
+			"https://github.com/JansenSmith/Luna_Parameterization.git", // git location of the library
+			"PrintedHorn.groovy" , // file to load
+			)
+		myMovedLinks.add(servoHorn)
 		
 
 		return myMovedLinks;
