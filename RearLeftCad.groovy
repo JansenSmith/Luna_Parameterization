@@ -24,7 +24,7 @@ println "Loading STL file"
 
 return new ICadGenerator(){
 			ICadGenerator engine=ScriptingEngine.gitScriptRun(
-			"https://github.com/OperationSmallKat/Luna.git", // git location of the library
+			"https://github.com/JansenSmith/Luna_Parameterization.git", // git location of the library
 			"FrontRightCad.groovy" , // file to load
 			null
 			)

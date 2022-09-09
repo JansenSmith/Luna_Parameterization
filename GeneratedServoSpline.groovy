@@ -7,7 +7,7 @@ double computeGearPitch(double diameterAtCrown,double numberOfTeeth){
 
 double diameterAtCrown = 4.7
 double thicknessGear = 2.3
-
+ 
 // call a script from another library
 def bevelGears = ScriptingEngine.gitScriptRun(
             "https://github.com/madhephaestus/GearGenerator.git", // git location of the library
