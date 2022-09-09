@@ -35,12 +35,12 @@ singleGear = bevelGears.get(0)
 
 thicknessHorn = thicknessGear + 2
 widthHorn = 8
-servoHorn = new Cube(widthHorn, 10, thicknessHorn).toCSG()
-servoHorn = servoHorn.toZMin()
-servoHorn = servoHorn.difference(singleGear)
+servoSpline = new Cube(widthHorn, 10, thicknessHorn).toCSG()
+servoSpline = servoSpline.toZMin()
+servoSpline = servoSpline.difference(singleGear)
 setScrewHoleWidth = 2.5
 seScrewHeadWidth = setScrewHoleWidth + 2
 setScrewHoleClearance = new Cylinder(setScrewHoleWidth/2, thicknessHorn).toCSG()
 setScrewHoleClearance = setScrewHoleClearance.toZMin()
-servoHorn = servoHorn.difference(setScrewHoleClearance)
-return servoHorn
+servoSpline = servoSpline.difference(setScrewHoleClearance)
+return servoSpline

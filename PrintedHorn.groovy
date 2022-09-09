@@ -7,9 +7,9 @@ import com.neuronrobotics.bowlerstudio.scripting.ScriptingEngine
 // release v0.1.1
 
 // call a script from another library
-def servoHorn = ScriptingEngine.gitScriptRun(
+def servoShaft = ScriptingEngine.gitScriptRun(
 			"https://github.com/JansenSmith/Luna_Parameterization.git", // git location of the library
 			"GeneratedServoSpline.groovy" , // file to load
 			)
 
-return servoHorn
+return servoShaft
