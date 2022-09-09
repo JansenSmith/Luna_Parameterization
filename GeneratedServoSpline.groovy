@@ -32,15 +32,16 @@ println "Gear Ratio " + bevelGears.get(7)
 println "Mesh Interference calculated: " + bevelGears.get(9)
 // capture the CSG parts
 singleGear = bevelGears.get(0)
+singleGear = singleGear.toZMin()
 
 thicknessHorn = thicknessGear + 2
 widthHorn = 8
-servoSpline = new Cube(widthHorn, 10, thicknessHorn).toCSG()
-servoSpline = servoSpline.toZMin()
-servoSpline = servoSpline.difference(singleGear)
+//servoSpline = new Cube(widthHorn, 10, thicknessHorn).toCSG()
+//servoSpline = servoSpline.toZMin()
+//servoSpline = servoSpline.difference(singleGear)
 setScrewHoleWidth = 2.5
 seScrewHeadWidth = setScrewHoleWidth + 2
 setScrewHoleClearance = new Cylinder(setScrewHoleWidth/2, thicknessHorn).toCSG()
 setScrewHoleClearance = setScrewHoleClearance.toZMin()
-servoSpline = servoSpline.difference(setScrewHoleClearance)
-return servoSpline
+servoShaft = singleGear.union(setScrewHoleClearance)
+return servoShaft
