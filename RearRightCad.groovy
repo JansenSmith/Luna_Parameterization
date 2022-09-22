@@ -45,7 +45,7 @@ return new ICadGenerator(){
 						(linkIndex!=0  )||
 						(linkIndex==0 && i<2)
 					) {
-						continue;// this is the foot, stays in normal orenataiton
+						continue;// this is the foot, stays in normal orientation
 					}
 //					// rotate all the parts about x
 
