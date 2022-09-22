@@ -57,7 +57,7 @@ return new ICadGenerator(){
 				.rotx(90)
 				.movex(-44.5)
 				.movey(23.56)
-				.setColor(javafx.scene.paint.Color.YELLOW)
+				.setColor(javafx.scene.paint.Color.RED)
 			CSG elimb  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Luna.git",
 				"Encoder Limb.stl"))
